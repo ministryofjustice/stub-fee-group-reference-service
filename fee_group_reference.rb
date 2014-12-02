@@ -15,7 +15,7 @@ class FeeGroupReference < Struct.new(:postcode)
 
   def success_body
     {
-      "fgr"               => SecureRandom.hex(8),
+      "fgr"               => fee_group_reference,
       "ETOfficeCode"      => 22,
       "ETOfficeName"      => "Birmingham",
       "ETOfficeAddress"   => "Centre City Tower, 5­7 Hill Street, Birmingham B5 4UU",
@@ -31,7 +31,13 @@ class FeeGroupReference < Struct.new(:postcode)
     }
   end
 
-  private def error?
+  private
+
+  def error?
     postcode == 'ER0 0RR'
+  end
+
+  def fee_group_reference
+    "%010d00" % rand(9999999999)
   end
 end
